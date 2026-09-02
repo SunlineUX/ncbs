@@ -1,0 +1,859 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ant Design 风格主题生成器</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 
+         * Ant Design 色彩系统核心变量 
+         * 默认值将在 JS 中动态更新
+         */
+        :root {
+            /* 基础色板 - 亮色模式 */
+            --color-bg-base: #ffffff;
+            --color-bg-container: #ffffff;
+            --color-bg-elevated: #ffffff;
+            --color-text: rgba(0, 0, 0, 0.85);
+            --color-text-secondary: rgba(0, 0, 0, 0.45);
+            --color-text-tertiary: rgba(0, 0, 0, 0.08);
+            --color-border: #acacac;
+            
+            /* 品牌色阶 (1-10) */
+            --primary-1: #e6f7ff;
+            --primary-2: #bae7ff;
+            --primary-3: #91d5ff;
+            --primary-4: #69c0ff;
+            --primary-5: #40a9ff;
+            --primary-6: #0e6fda; /* 主色 */
+            --primary-7: #096dd9;
+            --primary-8: #0050b3;
+            --primary-9: #003a8c;
+            --primary-10: #002766;
+            
+            /* RGB格式的主色，用于阴影透明度计算 */
+            --primary-rgb: 24, 144, 255;
+        }
+
+        /* 深色模式变量覆盖 */
+        html.dark {
+            --color-bg-base: #141414;
+            --color-bg-container: #1f1f1f;
+            --color-bg-elevated: #262626;
+            --color-text: rgba(255, 255, 255, 0.85);
+            --color-text-secondary: rgba(255, 255, 255, 0.45);
+            --color-text-tertiary: rgba(255, 255, 255, 0.08);
+            --color-border: #434343;
+            
+            /* 深色模式下品牌色通常需要降低饱和度或调整明度以保持对比度 */
+            --primary-1: #111a2c;
+            --primary-2: #112545;
+            --primary-3: #15395b;
+            --primary-4: #1554ad;
+            --primary-5: #1765cc;
+            --primary-6: #177ddc; /* 深色模式主色通常稍亮或稍暗，这里沿用官方深色主色 */
+            --primary-7: #0958b9;
+            --primary-8: #003c8f;
+            --primary-9: #002c6b;
+            --primary-10: #001d42;
+            
+            --primary-rgb: 23, 125, 220;
+        }
+
+        body {
+            background-color: var(--color-bg-base);
+            color: var(--color-text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* 通用组件样式模拟 Ant Design */
+        .ant-btn {
+            line-height: 1.5715;
+            position: relative;
+            display: inline-block;
+            font-weight: 400;
+            white-space: nowrap;
+            text-align: center;
+            background-image: none;
+            border: 1px solid transparent;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.015);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+            user-select: none;
+            touch-action: manipulation;
+            height: 32px;
+            padding: 4px 15px;
+            font-size: 14px;
+            border-radius: 2px;
+            color: var(--color-text);
+            background: var(--color-bg-container);
+            border-color: var(--color-border);
+        }
+        .ant-btn:hover {
+            color: var(--primary-6);
+            /* background: var(--primary-1); */
+            border-color: var(--primary-6) !important;
+        }
+        
+        .ant-btn-primary {
+            color: #fff;
+            background: var(--primary-6);
+            border-color: var(--primary-6);
+            text-shadow: 0 -1px 0 rgba(0,0,0,0.12);
+            box-shadow: 0 2px 0 rgba(0,0,0,0.045);
+        }
+        
+        .ant-btn-primary:hover {
+            color: #fff;
+            background: var(--primary-5);
+            border-color: var(--primary-5);
+        }
+        
+        .ant-btn-primary:active {
+            background: var(--primary-7);
+            border-color: var(--primary-7);
+        }
+        .ant-btn:focus {
+            /* box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2); */
+        }
+
+        .ant-input {
+            box-sizing: border-box;
+            margin: 0;
+            font-variant: tabular-nums;
+            list-style: none;
+            font-feature-settings: 'tnum';
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            min-width: 0;
+            padding: 4px 11px;
+            color: var(--color-text);
+            font-size: 14px;
+            line-height: 1.5715;
+            background-color: var(--color-bg-container);
+            background-image: none;
+            border: 1px solid var(--color-border);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .ant-input:focus {
+            border-color: var(--primary-6);
+            box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+            outline: 0;
+        }
+        
+        .ant-input::placeholder {
+            color: var(--color-text-secondary);
+        }
+
+        .ant-select {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 4px 11px;
+            color: var(--color-text);
+            font-size: 14px;
+            line-height: 1.5715;
+            background-color: var(--color-bg-container);
+            border: 1px solid var(--color-border);
+            border-radius: 2px;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            min-height: 32px;
+            position: relative;
+        }
+        
+        .ant-select:hover {
+            border-color: var(--primary-5);
+        }
+        .ant-select:focus {
+            border-color: var(--primary-6);
+            box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+            outline: 0;
+        }
+
+        .ant-select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .ant-select-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            width: 100%;
+            background-color: var(--color-bg-container);
+            border: 1px solid var(--color-border);
+            border-radius: 2px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            z-index: 40;
+        }
+
+        .ant-select-dropdown.hidden {
+            display: none;
+        }
+
+        .ant-select-option {
+            padding: 8px 12px;
+            color: var(--color-text);
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .ant-select-option:hover,
+        .ant-select-option.selected {
+            background-color: var(--primary-1);
+            color: var(--primary-6);
+        }
+
+        .ant-radio-custom {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .ant-radio-custom input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .ant-radio-indicator {
+            width: 16px;
+            height: 16px;
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            background-color: var(--color-bg-container);
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .ant-radio-custom input:checked + .ant-radio-indicator {
+            border-color: var(--primary-6);
+            box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.12);
+        }
+
+        .ant-radio-custom input:checked + .ant-radio-indicator::after {
+            content: "";
+            position: absolute;
+            inset: 3px;
+            border-radius: 50%;
+            background-color: var(--primary-6);
+        }
+
+        .ant-radio-label {
+            margin-left: 8px;
+            color: var(--color-text);
+            transition: color 0.2s ease;
+        }
+
+        .ant-radio-custom:hover .ant-radio-label {
+            color: var(--primary-6);
+        }
+
+        .card {
+            background-color: var(--color-bg-container);
+            border: 1px solid var(--color-border);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        
+        .card-header {
+            border-bottom: 1px solid var(--color-border);
+            padding: 16px;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+        
+        .card-body {
+            padding: 16px;
+        }
+
+        /* 色阶展示卡片 */
+        .color-swatch {
+            transition: transform 0.2s;
+        }
+        .color-swatch:hover {
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans">
+
+    <!-- 头部导航 -->
+    <header class="sticky top-0 z-50 bg-[var(--color-bg-container)] border-b border-[var(--color-border)] shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-[var(--primary-6)] flex items-center justify-center text-white font-bold shadow-md">
+                    <i class="fa-solid fa-palette"></i>
+                </div>
+                <h1 class="text-xl font-semibold tracking-tight text-[var(--color-text)]">Theme Generator</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-[var(--color-text)]">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- 左侧：控制面板 -->
+        <aside class="lg:col-span-4 space-y-6">
+            <!-- 颜色选择卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-lg font-medium flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-[var(--primary-6)]"></i> 品牌色配置
+                    </h2>
+                </div>
+                <div class="card-body space-y-6">
+                    <div class="flex items-center gap-4">
+                        <input type="color" id="colorPicker" value="#0e6fda" class="w-16 h-16 p-0 border-0 rounded cursor-pointer block shadow-inner">
+                        <div class="flex-1">
+                            <label class="block text-xs font-medium text-[var(--color-text-secondary)] mb-1">HEX 值</label>
+                            <div class="flex gap-2">
+                                <input type="text" id="hexInput" value="#0e6fda" class="ant-input uppercase font-mono" maxlength="7">
+                                <button id="randomBtn" class="ant-btn" title="随机颜色">
+                                    <i class="fa-solid fa-dice"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-2">预设常用色：</p>
+                        <div class="grid grid-cols-6 gap-2" id="presetColors">
+                            <!-- 预设颜色将由 JS 生成 -->
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-[var(--color-border)]">
+                        <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+                            <i class="fa-solid fa-circle-info mr-1"></i>
+                            算法基于 Ant Design 色彩体系，通过 HSB 模型调整饱和度与亮度生成 10 阶色板。深色模式下会自动适配对比度。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 色板展示 -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-lg font-medium">生成的 10 阶色板</h2>
+                </div>
+                <div class="card-body">
+                    <div class="space-y-2" id="paletteContainer">
+                        <!-- 色板条目将由 JS 生成 -->
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 右侧：组件预览 -->
+        <section class="lg:col-span-8 space-y-8">
+            
+            <!-- 1. 按钮组件预览 -->
+            <div class="card">
+                <div class="card-header flex justify-between items-center">
+                    <h3 class="font-medium">按钮组件 (Buttons)</h3>
+                    <span class="text-xs bg-[var(--primary-1)] text-[var(--primary-6)] px-2 py-1 rounded border border-[var(--primary-2)]">Interactive</span>
+                </div>
+                <div class="card-body">
+                    <div class="flex flex-wrap gap-4 items-center mb-6">
+                        <button class="ant-btn ant-btn-primary">Primary Button</button>
+                        <button class="ant-btn">Default Button</button>
+                        <!-- <button class="ant-btn" style="color: var(--primary-6); border-color: var(--primary-6);">Dashed Button</button> -->
+                        <button class="ant-btn" style="color: var(--primary-6); background: transparent; border-color: transparent;">Text Button</button>
+                        <button class="ant-btn ant-btn-primary" disabled style="opacity: 0.6; cursor: not-allowed;">Disabled</button>
+                    </div>
+                    <div class="pt-4 border-t border-[var(--color-border)]">
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-3">背景色应用示例：</p>
+                        <div class="flex gap-3">
+                            <div class="h-12 w-24 rounded flex flex-col items-center justify-center text-white text-xs bg-[var(--primary-6)] shadow-sm">
+                                <span class="font-bold">Primary-6</span>
+                                <span class="opacity-75 text-[10px]">Main Color</span>
+                            </div>
+                            <div class="h-12 w-24 rounded flex flex-col items-center justify-center text-[var(--color-text)] text-xs bg-[var(--primary-3)] shadow-sm border border-[var(--color-border)]">
+                                <span class="font-bold">Primary-3</span>
+                                <span class="opacity-75 text-[10px]">Light Tint</span>
+                            </div>
+                            <div class="h-12 w-24 rounded flex flex-col items-center justify-center text-[var(--color-text)] text-xs bg-[var(--primary-1)] shadow-sm border border-[var(--color-border)]">
+                                <span class="font-bold">Primary-1</span>
+                                <span class="opacity-75 text-[10px]">Background</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 表单组件预览 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="font-medium">表单组件 (Forms)</h3>
+                </div>
+                <div class="card-body grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-[var(--color-text)] mb-1">输入框 (Input)</label>
+                        <input type="text" class="ant-input" placeholder="请输入内容..." value="Focus me to see primary shadow">
+                        <p class="text-xs text-[var(--color-text-secondary)] mt-1">聚焦时边框和阴影跟随主色</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-[var(--color-text)] mb-1">下拉选择 (Select)</label>
+                        <div class="ant-select-wrapper">
+                            <button type="button" class="ant-select" id="demoSelect" aria-haspopup="listbox" aria-expanded="false">
+                                <span id="demoSelectValue">Select Option</span>
+                                <i class="fa-solid fa-chevron-down text-xs text-[var(--color-text-secondary)]"></i>
+                            </button>
+                            <div class="ant-select-dropdown hidden" id="demoSelectDropdown" role="listbox">
+                                <div class="ant-select-option selected" data-value="Apple" role="option" aria-selected="true">Apple</div>
+                                <div class="ant-select-option" data-value="Banana" role="option" aria-selected="false">Banana</div>
+                                <div class="ant-select-option" data-value="Orange" role="option" aria-selected="false">Orange</div>
+                                <div class="ant-select-option" data-value="Pear" role="option" aria-selected="false">Pear</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2">
+                         <label class="block text-sm font-medium text-[var(--color-text)] mb-2">单选框 (Radio Group)</label>
+                         <div class="flex gap-6">
+                             <label class="ant-radio-custom">
+                                 <input type="radio" name="demo-radio" checked>
+                                 <span class="ant-radio-indicator"></span>
+                                 <span class="ant-radio-label text-sm">Apple</span>
+                             </label>
+                             <label class="ant-radio-custom">
+                                 <input type="radio" name="demo-radio">
+                                 <span class="ant-radio-indicator"></span>
+                                 <span class="ant-radio-label text-sm">Banana</span>
+                             </label>
+                             <label class="ant-radio-custom">
+                                 <input type="radio" name="demo-radio">
+                                 <span class="ant-radio-indicator"></span>
+                                 <span class="ant-radio-label text-sm">Orange</span>
+                             </label>
+                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 数据展示与反馈 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="font-medium">数据展示 (Data Display)</h3>
+                </div>
+                <div class="card-body space-y-6">
+                    <!-- 标签 -->
+                    <div>
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-2">标签 (Tags)</p>
+                        <div class="flex gap-2 flex-wrap">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-[var(--primary-1)] text-[var(--primary-6)] border border-[var(--primary-2)]">
+                                Primary Tag
+                            </span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                Success
+                            </span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                Error
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- 进度条 -->
+                    <div>
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-2">进度条 (Progress)</p>
+                        <div class="w-full bg-[var(--color-text-tertiary)] rounded-full h-2.5 overflow-hidden">
+                            <div class="bg-[var(--primary-6)] h-2.5 rounded-full transition-all duration-500 relative" style="width: 45%">
+                                <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between text-xs text-[var(--color-text-secondary)] mt-1">
+                            <span>Processing...</span>
+                            <span>45%</span>
+                        </div>
+                    </div>
+
+                    <!-- 卡片嵌套 -->
+                    <div>
+                        <p class="text-sm text-[var(--color-text-secondary)] mb-2">卡片 (Card)</p>
+                        <div class="border border-[var(--color-border)] rounded-md overflow-hidden hover:shadow-lg transition-shadow bg-[var(--color-bg-container)]">
+                            <div class="h-32 bg-gradient-to-r from-[var(--primary-1)] to-[var(--color-bg-container)] dark:from-[var(--primary-10)] dark:to-[var(--color-bg-container)] flex items-center justify-center relative overflow-hidden">
+                                <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                                <i class="fa-regular fa-image text-4xl text-[var(--primary-3)]"></i>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="font-medium text-[var(--color-text)]">Card Title</h4>
+                                <p class="text-sm text-[var(--color-text-secondary)] mt-1">This card uses the generated primary color for its accent elements and gradients.</p>
+                                <div class="mt-4 flex justify-end">
+                                    <button class="text-sm text-[var(--primary-6)] hover:text-[var(--primary-5)] font-medium transition-colors">Learn More &rarr;</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="bg-[var(--color-bg-container)] border-t border-[var(--color-border)] mt-auto">
+        <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
+            <p class="text-sm text-[var(--color-text-secondary)]">&copy; 2026 Theme Generator. Inspired by Ant Design.</p>
+            <div class="flex gap-4">
+                <a href="#" class="text-[var(--color-text-secondary)] hover:text-[var(--primary-6)] transition-colors"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="text-[var(--color-text-secondary)] hover:text-[var(--primary-6)] transition-colors"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * Ant Design 风格颜色生成算法
+         * 基于 HSB 模型，通过调整 Hue, Saturation, Brightness 生成 10 个色阶
+         * 支持亮色/深色模式自动适配
+         */
+
+        // 预设颜色列表
+        const PRESET_COLORS = [
+            '#0e6fda', // Blue
+            '#f5222d', // Red
+            '#52c41a', // Green
+            '#faad14', // Gold
+            '#722ed1', // Purple
+            '#13c2c2', // Cyan
+            '#eb2f96', // Magenta
+            '#fa541c'  // Volcano
+        ];
+
+        // DOM 元素
+        const colorPicker = document.getElementById('colorPicker');
+        const hexInput = document.getElementById('hexInput');
+        const randomBtn = document.getElementById('randomBtn');
+        const paletteContainer = document.getElementById('paletteContainer');
+        const presetContainer = document.getElementById('presetColors');
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // 初始化
+        function init() {
+            renderPresetColors();
+            updateTheme('#0e6fda');
+            initSelect();
+            
+            // 事件监听
+            colorPicker.addEventListener('input', (e) => {
+                updateTheme(e.target.value);
+            });
+
+            hexInput.addEventListener('change', (e) => {
+                let hex = e.target.value;
+                if (!hex.startsWith('#')) hex = '#' + hex;
+                if (/^#[0-9A-F]{6}$/i.test(hex)) {
+                    updateTheme(hex);
+                }
+            });
+
+            randomBtn.addEventListener('click', () => {
+                const randomHex = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+                updateTheme(randomHex);
+            });
+            
+            // 主题切换监听
+            themeToggle.addEventListener('click', toggleTheme);
+        }
+
+        function initSelect() {
+            const selectBtn = document.getElementById('demoSelect');
+            const dropdown = document.getElementById('demoSelectDropdown');
+            const valueEl = document.getElementById('demoSelectValue');
+            const options = dropdown.querySelectorAll('.ant-select-option');
+
+            const toggleDropdown = () => {
+                const isOpen = !dropdown.classList.contains('hidden');
+                dropdown.classList.toggle('hidden', isOpen);
+                selectBtn.setAttribute('aria-expanded', String(!isOpen));
+            };
+
+            selectBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                toggleDropdown();
+            });
+
+            options.forEach((option) => {
+                option.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const selectedValue = option.dataset.value;
+                    valueEl.textContent = selectedValue;
+
+                    options.forEach((item) => {
+                        const isSelected = item === option;
+                        item.classList.toggle('selected', isSelected);
+                        item.setAttribute('aria-selected', String(isSelected));
+                    });
+
+                    dropdown.classList.add('hidden');
+                    selectBtn.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!selectBtn.contains(event.target) && !dropdown.contains(event.target)) {
+                    dropdown.classList.add('hidden');
+                    selectBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        // 切换亮/暗主题
+        function toggleTheme() {
+            const isDark = htmlElement.classList.toggle('dark');
+            const icon = themeToggle.querySelector('i');
+            if (isDark) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+            // 切换主题后重新计算色板，因为深色模式的算法略有不同
+            updateTheme(hexInput.value);
+        }
+
+        // 渲染预设颜色按钮
+        function renderPresetColors() {
+            presetContainer.innerHTML = PRESET_COLORS.map(color => `
+                <div 
+                    class="w-8 h-8 rounded cursor-pointer border border-gray-200 dark:border-gray-700 hover:scale-110 transition-transform shadow-sm" 
+                    style="background-color: ${color}"
+                    onclick="updateTheme('${color}')"
+                    title="${color}"
+                ></div>
+            `).join('');
+        }
+
+        // 核心：更新主题
+        function updateTheme(hex) {
+            // 1. 生成色板 (区分亮暗模式)
+            const isDark = htmlElement.classList.contains('dark');
+            const colors = generateColorPalette(hex, isDark);
+            
+            // 2. 更新 CSS 变量
+            const root = document.documentElement;
+            
+            // 更新 RGB 变量用于阴影
+            const rgb = hexToRgbValues(hex);
+            root.style.setProperty('--primary-rgb', `${rgb.r}, ${rgb.g}, ${rgb.b}`);
+            
+            // 更新 10 阶色板
+            colors.forEach((color, index) => {
+                root.style.setProperty(`--primary-${index + 1}`, color);
+            });
+            
+            // 如果是深色模式，还需要更新一些基础背景变量以确保对比度
+            // 这里简化处理，主要依赖 CSS 中的 .dark 类定义，但主色变量必须更新
+            
+            // 3. 更新 UI 控件状态
+            colorPicker.value = hex;
+            hexInput.value = hex;
+
+            // 4. 重新渲染色板列表
+            renderPaletteList(colors, hex);
+        }
+
+        // 渲染色板列表 UI
+        function renderPaletteList(colors, mainHex) {
+            paletteContainer.innerHTML = colors.map((color, index) => {
+                const level = index + 1;
+                const isMain = level === 6;
+                // 计算文字颜色以确保可读性
+                const textColor = isLightColor(color) ? '#000' : '#fff';
+                
+                return `
+                <div class="color-swatch flex items-center justify-between p-2 rounded border border-[var(--color-border)] bg-[var(--color-bg-container)] group cursor-pointer" onclick="copyToClipboard('${color}')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded shadow-sm border border-black/5" style="background-color: ${color}"></div>
+                        <div>
+                            <div class="text-sm font-medium text-[var(--color-text)]">Primary-${level}</div>
+                            <div class="text-xs text-[var(--color-text-secondary)] font-mono">${color.toUpperCase()}</div>
+                        </div>
+                    </div>
+                    ${isMain ? '<span class="text-xs bg-[var(--primary-1)] text-[var(--primary-6)] px-2 py-0.5 rounded border border-[var(--primary-2)]">Main</span>' : ''}
+                    <div class="opacity-0 group-hover:opacity-100 text-[var(--color-text-secondary)] text-xs transition-opacity">
+                        Click to copy
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // 复制到剪贴板
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // 简单的提示效果
+                const originalTitle = document.title;
+                document.title = `Copied ${text}!`;
+                setTimeout(() => document.title = originalTitle, 1000);
+            });
+        }
+
+        // 判断颜色深浅以决定文字颜色
+        function isLightColor(hex) {
+            const rgb = hexToRgbValues(hex);
+            const brightness = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
+            return brightness > 128;
+        }
+
+        /**
+         * 颜色生成算法
+         * 将 HEX 转换为 HSB，然后按照 Ant Design 的规则生成 10 个色阶
+         */
+        function generateColorPalette(hex, isDark) {
+            const hsb = hexToHsb(hex);
+            const rgb = hexToRgbValues(hex);
+            const colors = [];
+
+            // 亮色模式：低阶靠亮度拉开层级，浅色更轻，深色更浓
+            // 深色模式：低阶靠透明度拉开层级，浅色更透，深色更实
+            for (let i = 1; i <= 10; i++) {
+                if (isDark) {
+                    if (i < 6) {
+                        // i=1 最浅、最透明；i=5 最接近主色、较不透明
+                        const alpha = 0.08 + i * 0.08;
+                        colors.push(`rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha.toFixed(2)})`);
+                    } else if (i === 6) {
+                        colors.push(hex.toUpperCase());
+                    } else {
+                        const step = i - 6;
+                        const s = clamp(hsb.s + step * 5, 25, 100);
+                        const b = clamp(hsb.b - step * 10, 14, 96);
+                        colors.push(hsbToHex(hsb.h, s, b));
+                    }
+                    continue;
+                }
+
+                let h = hsb.h;
+                let s = hsb.s;
+                let b = hsb.b;
+
+                if (i === 6) {
+                    colors.push(hex.toUpperCase());
+                } else if (i < 6) {
+                    const step = 6 - i;
+                    // i 越小 => b 越大（接近 100），s 越小（接近 0）
+                    // 这样低阶颜色会更浅、更淡、更接近白色/极淡主色
+                    b = clamp(hsb.b + step * 12, 50, 100);
+                    s = clamp(hsb.s - step * 15, 0, 100);
+                    colors.push(hsbToHex(h, s, b));
+                } else {
+                    const step = i - 6;
+                    b = clamp(hsb.b - step * 11, 8, 100);
+                    s = clamp(hsb.s + step * 5, 18, 100);
+                    colors.push(hsbToHex(h, s, b));
+                }
+            }
+
+            return colors;
+        }
+
+        // --- 颜色转换工具函数 ---
+
+        function hexToRgbValues(hex) {
+            if (typeof hex !== 'string') {
+                return { r: 0, g: 0, b: 0 };
+            }
+
+            if (hex.startsWith('rgba(')) {
+                const match = hex.match(/rgba\((\d+),\s*(\d+),\s*(\d+)/i);
+                if (match) {
+                    return {
+                        r: Number(match[1]),
+                        g: Number(match[2]),
+                        b: Number(match[3])
+                    };
+                }
+            }
+
+            const cleanHex = hex.startsWith('#') ? hex : `#${hex}`;
+            let r = parseInt(cleanHex.slice(1, 3), 16);
+            let g = parseInt(cleanHex.slice(3, 5), 16);
+            let b = parseInt(cleanHex.slice(5, 7), 16);
+            return { r, g, b };
+        }
+
+        function hexToHsb(hex) {
+            let r = parseInt(hex.slice(1, 3), 16) / 255;
+            let g = parseInt(hex.slice(3, 5), 16) / 255;
+            let b = parseInt(hex.slice(5, 7), 16) / 255;
+
+            let max = Math.max(r, g, b), min = Math.min(r, g, b);
+            let h, s, v = max;
+            let d = max - min;
+            s = max === 0 ? 0 : d / max;
+
+            if (max === min) {
+                h = 0;
+            } else {
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                h /= 6;
+            }
+
+            return {
+                h: Math.round(h * 360),
+                s: Math.round(s * 100),
+                b: Math.round(v * 100)
+            };
+        }
+
+        function clamp(value, min, max) {
+            return Math.min(Math.max(value, min), max);
+        }
+
+        function hsbToHex(h, s, b) {
+            s /= 100;
+            b /= 100;
+            let c = b * s;
+            let x = c * (1 - Math.abs((h / 60) % 2 - 1));
+            let m = b - c;
+            let r, g, bl;
+
+            if (0 <= h && h < 60) { r = c; g = x; bl = 0; }
+            else if (60 <= h && h < 120) { r = x; g = c; bl = 0; }
+            else if (120 <= h && h < 180) { r = 0; g = c; bl = x; }
+            else if (180 <= h && h < 240) { r = 0; g = x; bl = c; }
+            else if (240 <= h && h < 300) { r = x; g = 0; bl = c; }
+            else { r = c; g = 0; bl = x; }
+
+            const toHex = (n) => {
+                const hex = Math.round((n + m) * 255).toString(16);
+                return hex.length === 1 ? '0' + hex : hex;
+            };
+
+            return `#${toHex(r)}${toHex(g)}${toHex(bl)}`;
+        }
+
+        // 启动应用
+        init();
+    </script>
+</body>
+</html>
