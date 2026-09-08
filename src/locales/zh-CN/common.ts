@@ -1,0 +1,16 @@
+export default {
+  ok: '确定',
+  cancel: '取消',
+  save: '保存',
+  reset: '重置',
+  search: '搜索',
+  refresh: '刷新',
+  back: '返回',
+  loading: '加载中...',
+  noData: '暂无数据',
+  actions: '操作',
+  confirm: '确认',
+  close: '关闭',
+  yes: '是',
+  no: '否',
+}

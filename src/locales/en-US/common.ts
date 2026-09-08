@@ -1,0 +1,16 @@
+export default {
+  ok: 'OK',
+  cancel: 'Cancel',
+  save: 'Save',
+  reset: 'Reset',
+  search: 'Search',
+  refresh: 'Refresh',
+  back: 'Back',
+  loading: 'Loading...',
+  noData: 'No data',
+  actions: 'Actions',
+  confirm: 'Confirm',
+  close: 'Close',
+  yes: 'Yes',
+  no: 'No',
+}
