@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, type CSSProperties } from 'vue'
 import { useAppStore } from '@/stores/modules/app'
-import SideMenu from '../AppMenu/SideMenu.vue'
-import Logo from '../AppLogo/Logo.vue'
-import { menuItems } from '@/config/menu'
+import SideMenu from '@/components/layout/AppMenu/SideMenu.vue'
+import Logo from '@/components/layout/AppLogo/Logo.vue'
+import { aiMenus } from '@/config/menu'
 
 const props = defineProps<{ width: string }>()
 
@@ -17,7 +17,7 @@ const sidebarStyle = computed<CSSProperties>(() => ({
 <template>
   <aside class="app-sidebar" :style="sidebarStyle">
     <Logo class="app-logo" />
-    <SideMenu :items="menuItems" mode="collapse" :inline-collapsed="appStore.sidebarCollapsed" />
+    <SideMenu :items="aiMenus" mode="collapse" :inline-collapsed="appStore.sidebarCollapsed" />
   </aside>
 </template>
 

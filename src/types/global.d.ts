@@ -3,6 +3,7 @@
 // ===============================
 
 import type { RouteRecordRaw } from 'vue-router'
+import type { Component } from 'vue'
 import type { ThemeName as RegisteredThemeName } from '@/config/themes'
 
 // 实际主题名称
@@ -23,7 +24,9 @@ declare module 'vue-router' {
     /** 路由标题（多语言 key 或固定文本） */
     title?: string
     /** 使用的布局，默认 AppLayout */
-    layout?: 'AppLayout' | 'BlankLayout'
+    layout?: 'AppLayout' | 'BlankLayout' | 'AiLayout'
+    /** 版本专属布局组件 */
+    versionLayout?: Component
     /** 是否在侧边栏菜单中隐藏 */
     hidden?: boolean
     /** 菜单图标（图标名称，由图标系统解析） */
@@ -35,6 +38,8 @@ declare module 'vue-router' {
 
 // 路由模块标准结构
 export interface RouteModule {
+  /** 路由所属版本，用于匹配版本专属布局 */
+  version?: string
   order?: number
   routes: RouteRecordRaw[]
 }

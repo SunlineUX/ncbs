@@ -17,7 +17,7 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
   const items: BreadcrumbItem[] = []
 
   // 始终在最前插入「首页」
-  items.push({ title: t('layout.breadcrumbHome'), path: '/' })
+  // items.push({ title: t('layout.breadcrumbHome'), path: '/' })
 
   matched.forEach((m) => {
     if (m.meta?.hidden) return

@@ -21,7 +21,10 @@ export const LayoutType = {
 export const RouteNames = {
   ROOT: 'root',
   HOME: 'home',
+  AI_HOME: 'ai_home',
   ABOUT: 'about',
   SYSTEM_USER: 'system_user',
   NOT_FOUND: 'not_found',
+  DEV: 'dev',
+  AI: 'ai',
 } as const

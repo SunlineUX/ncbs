@@ -1,30 +1,24 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { RouterView } from 'vue-router'
 import { useAppStore } from '@/stores/modules/app'
-import { useSettingsStore } from '@/stores/modules/settings'
-import SideLayoutHeader from '@/components/layout/AppHeader/SideLayoutHeader.vue'
-import AppSidebar from '@/components/layout/AppSidebar/AppSidebar.vue'
-import AppContent from '@/components/layout/AppContent/AppContent.vue'
-import AppTabs from '@/components/layout/AppTabs/AppTabs.vue'
+import SideBar from './SideBar.vue'
 
 const appStore = useAppStore()
-const settingsStore = useSettingsStore()
 const sidebarWidth = computed(() => (appStore.sidebarCollapsed ? '56px' : '180px'))
 </script>
 
 <template>
-  <div class="app-layout">
-    <AppSidebar :width="sidebarWidth" />
+  <div class="ai-layout">
+    <SideBar :width="sidebarWidth" />
     <div class="app-layout__main" :style="{ marginLeft: sidebarWidth }">
-      <SideLayoutHeader :show-sidebar-toggle="false" />
-      <AppTabs v-if="settingsStore.enableTabs" />
-      <AppContent />
+      <RouterView />
     </div>
   </div>
 </template>
 
 <style lang="less" scoped>
-.app-layout {
+.ai-layout {
   position: relative;
   width: 100%;
   height: 100%;

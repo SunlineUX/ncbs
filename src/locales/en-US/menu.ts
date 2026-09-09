@@ -5,4 +5,8 @@ export default {
     self: 'System',
     user: 'User Management',
   },
+  ai: {
+    dev: 'Data Development',
+    home: 'Home',
+  },
 }

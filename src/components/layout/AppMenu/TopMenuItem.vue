@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { i18n } from '@/locales'
 import type { MenuItem } from '@/config/menu'
 
+
 const props = defineProps<{ item: MenuItem; openKeys: string[]; selectedKeys: string[] }>()
 const emit = defineEmits<{
   (event: 'click', key: string): void
@@ -33,7 +34,9 @@ function handleClick() {
     >
       <IconFont v-if="item.icon" class="top-menu-item__icon" :name="item.icon" />
       <span>{{ t(item.label) }}</span>
-      <span v-if="hasChildren" class="top-menu-item__arrow" aria-hidden="true">⌄</span>
+      <span v-if="hasChildren" class="top-menu-item__arrow" aria-hidden="true">
+        <IconFont name="ArrowDown" size="12px" />
+      </span>
     </button>
     <ul v-if="hasChildren" class="top-menu-item__children">
       <TopMenuItem

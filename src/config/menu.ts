@@ -12,7 +12,7 @@ export interface MenuItem {
 
 export const menuItems: MenuItem[] = [
   {
-    key: '/',
+    key: '/home',
     label: 'menu.home',
     icon: 'HomeFilled',
   },
@@ -33,4 +33,29 @@ export const menuItems: MenuItem[] = [
       },
     ],
   },
+]
+
+export const aiMenus: MenuItem[] = [
+  {
+    key: '/ai',
+    label: 'menu.ai.home',
+    icon: 'HomeFilled',
+  },
+  {
+    key: '/ai/dev',
+    label: 'menu.ai.dev',
+    icon: 'CompassFilled',
+  },
+  // {
+  //   key: '/system',
+  //   label: 'menu.system.self',
+  //   icon: 'SettingFilled',
+  //   children: [
+  //     {
+  //       key: '/system/user',
+  //       label: 'menu.system.user',
+  //       icon: 'UserInfoFilled',
+  //     },
+  //   ],
+  // },
 ]

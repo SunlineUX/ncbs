@@ -10,6 +10,8 @@ export interface AppConfig {
   appTitle: string
   /** 基础路径 */
   baseUrl: string
+  /** 相对路径 */
+  relativeUrl: string
   /** 默认语言 */
   defaultLocale: Locale
   /** 可选语言列表 */
@@ -25,6 +27,7 @@ export interface AppConfig {
 export const appConfig: AppConfig = {
   appTitle: import.meta.env.VITE_APP_TITLE || 'NCBS',
   baseUrl: import.meta.env.VITE_APP_BASE_URL || '/',
+  relativeUrl: '/ncbs/datamind/',
   defaultLocale: 'zh-CN',
   locales: [
     { value: 'zh-CN', label: '简体中文' },

@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { SideLayout, TopLayout } from '@/components/layout/AppLayout'
 import BlankLayout from '@/components/layout/BlankLayout/BlankLayout.vue'
+import AiLayout from '@/views/version-ai/Layout.vue'
 import { useSettingsStore } from '@/stores/modules/settings'
 
 // ===============================
@@ -19,6 +20,10 @@ const layoutComponents = {
 
 const currentLayout = computed(() => {
   if (router.currentRoute.value.meta?.layout === 'BlankLayout') return BlankLayout
+  if (router.currentRoute.value.meta?.layout === 'AiLayout') return AiLayout
+  if (router.currentRoute.value.meta?.versionLayout) {
+    return router.currentRoute.value.meta.versionLayout
+  }
   return layoutComponents[settingsStore.layoutMode]
 })
 </script>

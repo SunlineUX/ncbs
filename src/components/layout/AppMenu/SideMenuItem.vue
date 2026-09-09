@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { i18n } from '@/locales'
 import type { MenuItem } from '@/config/menu'
 import DmPopover from '@/components/dm/DmPopover/DmPopover.vue'
+import DmTooltip from '@/components/dm/DmTooltip/DmTooltip.vue'
 
 const props = withDefaults(
   defineProps<{
@@ -34,6 +35,7 @@ const isSelected = computed(() => props.selectedKeys.includes(props.item.key))
 const usePopover = computed(
   () => hasChildren.value && (props.mode === 'inline' || props.inlineCollapsed),
 )
+const useTooltip = computed(() => props.inlineCollapsed && props.level === 0)
 const popoverMode = computed(() => (props.inlineCollapsed ? 'inline' : props.mode))
 
 function handleClick() {
@@ -78,6 +80,9 @@ function handleChildOpenChange(key: string) {
           </span>
         </button>
       </template>
+      <div v-if="inlineCollapsed" class="app-menu-item__popover-title">
+        {{ t(item.label) }}
+      </div>
       <ul class="app-menu-item__children app-menu-item__children--popover">
         <SideMenuItem
           v-for="child in item.children"
@@ -93,6 +98,22 @@ function handleChildOpenChange(key: string) {
         />
       </ul>
     </DmPopover>
+
+    <template v-else-if="useTooltip">
+      <DmTooltip placement="right">
+        <template #trigger>
+          <button
+            class="app-menu-item__trigger"
+            type="button"
+            :title="t(item.label)"
+            @click="handleClick"
+          >
+            <IconFont v-if="item.icon" class="app-menu-item__icon" :name="item.icon" />
+          </button>
+        </template>
+        {{ t(item.label) }}
+      </DmTooltip>
+    </template>
 
     <template v-else>
       <button
@@ -154,7 +175,7 @@ function handleChildOpenChange(key: string) {
     }
   }
 
-  &.is-selected:not(.has-children) > &__trigger {
+  &.is-selected:not(.has-children) &__trigger {
     background-color: var(--color-sidebar-item-active);
     color: var(--color-sidebar-item-active-text);
   }
@@ -162,8 +183,12 @@ function handleChildOpenChange(key: string) {
     .flex-center();
   }
 
-  &.is-selected > &__trigger {
+  &.is-selected &__trigger {
     color: var(--color-sidebar-item-active-text);
+  }
+  &.is-collapsed &__trigger {
+    justify-content: center;
+    padding: 0;
   }
 
   &__icon {
@@ -210,6 +235,14 @@ function handleChildOpenChange(key: string) {
   &__children--popover {
     display: block;
     min-width: 180px;
+  }
+
+  &__popover-title {
+    padding: @spacing-xs @spacing-sm;
+    color: var(--color-text-secondary);
+    font-size: @font-size-sm;
+    font-weight: @font-weight-medium;
+    white-space: nowrap;
   }
 
   &__children &__trigger {
