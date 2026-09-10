@@ -59,14 +59,14 @@ function handleClick() {
 
   &__trigger {
     .flex-center();
-    gap: @spacing-sm;
+    gap: var(--spacing-sm);
     min-width: 112px;
     height: 100%;
-    padding: 0 @spacing-md;
+    padding: 0 var(--spacing-md);
     color: var(--color-text-base);
     background: transparent;
     white-space: nowrap;
-    transition: background-color @transition-fast @ease-in-out;
+    transition: background-color var(--transition-fast) var(--ease-in-out);
 
     &:hover,
     .top-menu-item.is-open > & {
@@ -80,11 +80,11 @@ function handleClick() {
   }
 
   &__icon {
-    font-size: @font-size-md;
+    font-size: var(--font-size-md);
   }
 
   &__arrow {
-    font-size: @font-size-md;
+    font-size: var(--font-size-md);
   }
 
   &__children {
@@ -94,13 +94,13 @@ function handleClick() {
     display: none;
     min-width: 190px;
     margin: 0;
-    padding: @spacing-xs 0;
+    padding: var(--spacing-xs) 0;
     list-style: none;
     background: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: 0 0 var(--radius-md) var(--radius-md);
     box-shadow: var(--shadow-md);
-    z-index: @z-dropdown;
+    z-index: var(--z-dropdown);
   }
 
   &:hover > &__children,

@@ -81,17 +81,17 @@ function onClear() {
 
 .base-input {
   width: 100%;
-  padding: 0 @spacing-md;
+  padding: 0 var(--spacing-md);
   border: 1px solid var(--color-border-strong);
-  border-radius: @radius-md;
+  border-radius: var(--radius-md);
   background-color: var(--color-bg-elevated);
   color: var(--color-text);
-  font-size: @font-size-base;
+  font-size: var(--font-size-base);
   line-height: 1;
   outline: none;
   transition:
-    border-color @transition-fast @ease-in-out,
-    box-shadow @transition-fast @ease-in-out;
+    border-color var(--transition-fast) var(--ease-in-out),
+    box-shadow var(--transition-fast) var(--ease-in-out);
 
   &::placeholder {
     color: var(--color-text-placeholder);
@@ -115,28 +115,28 @@ function onClear() {
 
   &--sm {
     height: 28px;
-    font-size: @font-size-xs;
-    border-radius: @radius-sm;
+    font-size: var(--font-size-xs);
+    border-radius: var(--radius-sm);
   }
   &--md {
     height: 32px;
-    border-radius: @radius-md;
+    border-radius: var(--radius-md);
   }
   &--lg {
     height: 40px;
-    font-size: @font-size-md;
-    border-radius: @radius-lg;
+    font-size: var(--font-size-md);
+    border-radius: var(--radius-lg);
   }
 }
 
 .base-input__clear {
   position: absolute;
-  right: @spacing-sm;
+  right: var(--spacing-sm);
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
   color: var(--color-text-muted);
-  font-size: @font-size-md;
+  font-size: var(--font-size-md);
   user-select: none;
   &:hover {
     color: var(--color-text);

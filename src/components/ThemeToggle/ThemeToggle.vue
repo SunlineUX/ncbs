@@ -62,12 +62,12 @@ const label = computed(() => {
 
   &__btn {
     .flex-center();
-    gap: @spacing-xs;
+    gap: var(--spacing-xs);
     height: 32px;
-    padding: 0 @spacing-sm;
-    border-radius: @radius-md;
+    padding: 0 var(--spacing-sm);
+    border-radius: var(--radius-md);
     color: var(--color-text-base);
-    transition: background-color @transition-fast @ease-in-out;
+    transition: background-color var(--transition-fast) var(--ease-in-out);
 
     &:hover {
       background-color: var(--color-primary-light);
@@ -76,11 +76,11 @@ const label = computed(() => {
   }
 
   &__icon {
-    font-size: @font-size-md;
+    font-size: var(--font-size-md);
   }
 
   &__text {
-    font-size: @font-size-xs;
+    font-size: var(--font-size-xs);
   }
 
   &__menu {
@@ -90,14 +90,14 @@ const label = computed(() => {
     min-width: 120px;
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
-    border-radius: @radius-md;
+    border-radius: var(--radius-md);
     box-shadow: var(--shadow-md);
-    padding: @spacing-xs 0;
+    padding: var(--spacing-xs) 0;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-4px);
-    transition: all @transition-fast @ease-in-out;
-    z-index: @z-dropdown;
+    transition: all var(--transition-fast) var(--ease-in-out);
+    z-index: var(--z-dropdown);
   }
 
   &:hover &__menu {
@@ -107,11 +107,11 @@ const label = computed(() => {
   }
 
   &__item {
-    padding: @spacing-xs @spacing-md;
+    padding: var(--spacing-xs) var(--spacing-md);
     cursor: pointer;
-    font-size: @font-size-sm;
+    font-size: var(--font-size-sm);
     color: var(--color-text-base);
-    transition: background-color @transition-fast @ease-in-out;
+    transition: background-color var(--transition-fast) var(--ease-in-out);
 
     &:hover {
       background-color: var(--color-sidebar-item-hover);

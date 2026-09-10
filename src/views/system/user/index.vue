@@ -77,31 +77,31 @@ const filtered = computed(() => {
 <style lang="less" scoped>
 .user-view {
   &__title {
-    font-size: @font-size-2xl;
-    margin-bottom: @spacing-lg;
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-lg);
   }
 
   &__toolbar {
     .flex-between();
-    gap: @spacing-sm;
-    margin-bottom: @spacing-md;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
   }
 
   &__table {
     width: 100%;
     border-collapse: collapse;
-    font-size: @font-size-sm;
+    font-size: var(--font-size-sm);
 
     th,
     td {
-      padding: @spacing-sm @spacing-md;
+      padding: var(--spacing-sm) var(--spacing-md);
       text-align: left;
       border-bottom: 1px solid var(--color-border-light);
     }
 
     th {
       color: var(--color-text-muted);
-      font-weight: @font-weight-medium;
+      font-weight: var(--font-weight-medium);
       background-color: var(--color-bg-soft);
     }
 
@@ -117,7 +117,7 @@ const filtered = computed(() => {
   &__empty {
     text-align: center;
     color: var(--color-text-muted);
-    padding: @spacing-lg 0 !important;
+    padding: var(--spacing-lg) 0 !important;
   }
 }
 </style>

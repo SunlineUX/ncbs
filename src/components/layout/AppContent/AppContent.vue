@@ -16,7 +16,7 @@ import { RouterView } from 'vue-router'
 .app-content {
   flex: 1;
   overflow: auto;
-  padding: var(--layout-content-padding, @layout-content-padding);
+  padding: var(--layout-content-padding, var(--layout-content-padding));
   background-color: var(--color-bg);
   .scrollbar-themed();
 }

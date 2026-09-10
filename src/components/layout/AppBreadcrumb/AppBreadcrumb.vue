@@ -51,8 +51,8 @@ const breadcrumbs = computed<BreadcrumbItem[]>(() => {
 .app-breadcrumb {
   display: flex;
   align-items: center;
-  gap: @spacing-xs;
-  font-size: @font-size-sm;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
   color: var(--color-text-muted);
 
   &__item {

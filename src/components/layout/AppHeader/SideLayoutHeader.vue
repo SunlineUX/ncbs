@@ -82,8 +82,8 @@ function toggleSidebar() {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: @layout-header-height;
-  padding: 0 @spacing-md;
+  height: var(--layout-header-height);
+  padding: 0 var(--spacing-md);
   background-color: var(--color-header-bg);
   border-bottom: 1px solid var(--color-border);
   flex-shrink: 0;
@@ -91,38 +91,38 @@ function toggleSidebar() {
   &__left {
     display: flex;
     align-items: center;
-    gap: @spacing-sm;
+    gap: var(--spacing-sm);
   }
 
   &__right {
     display: flex;
     align-items: center;
-    gap: @spacing-md;
+    gap: var(--spacing-md);
   }
 
   &__collapse-icon {
-    font-size: @font-size-md;
+    font-size: var(--font-size-md);
   }
 
   &__user {
     display: flex;
     align-items: center;
-    gap: @spacing-xs;
+    gap: var(--spacing-xs);
   }
 
   &__avatar {
     .flex-center();
     width: 28px;
     height: 28px;
-    border-radius: @radius-full;
+    border-radius: var(--radius-full);
     background-color: var(--color-primary);
     color: var(--color-primary-inverse);
-    font-size: @font-size-xs;
-    font-weight: @font-weight-semibold;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
   }
 
   &__username {
-    font-size: @font-size-sm;
+    font-size: var(--font-size-sm);
     color: var(--color-text);
     .text-ellipsis();
   }

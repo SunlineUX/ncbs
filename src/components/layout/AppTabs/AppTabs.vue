@@ -57,9 +57,9 @@ onBeforeUnmount(removeAfterEach)
 .app-tabs {
   display: flex;
   flex-shrink: 0;
-  gap: @spacing-xs;
+  gap: var(--spacing-xs);
   min-height: 38px;
-  padding: @spacing-xs @spacing-md 0;
+  padding: var(--spacing-xs) var(--spacing-md) 0;
   overflow-x: auto;
   background: var(--color-bg-soft);
   border-bottom: 1px solid var(--color-border);
@@ -67,11 +67,11 @@ onBeforeUnmount(removeAfterEach)
   &__tab {
     display: inline-flex;
     align-items: center;
-    gap: @spacing-xs;
+    gap: var(--spacing-xs);
     min-width: 72px;
     max-width: 180px;
     height: 30px;
-    padding: 0 @spacing-sm;
+    padding: 0 var(--spacing-sm);
     border: 1px solid var(--color-border);
     border-bottom: 0;
     border-radius: var(--radius-md) var(--radius-md) 0 0;
@@ -88,7 +88,7 @@ onBeforeUnmount(removeAfterEach)
     border-color: var(--color-primary);
   }
   &__close {
-    font-size: @font-size-md;
+    font-size: var(--font-size-md);
     line-height: 1;
   }
 }

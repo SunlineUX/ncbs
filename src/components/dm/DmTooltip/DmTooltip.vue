@@ -77,14 +77,14 @@ onBeforeUnmount(clearCloseTimer)
 
   &__content {
     position: fixed;
-    z-index: @z-dropdown;
+    z-index: var(--z-dropdown);
     max-width: 240px;
-    padding: @spacing-xs @spacing-sm;
+    padding: var(--spacing-xs) var(--spacing-sm);
     color: var(--color-text-inverse);
     background-color: var(--color-bg-inverse);
     border-radius: var(--radius-sm);
     box-shadow: var(--shadow-md);
-    font-size: @font-size-sm;
+    font-size: var(--font-size-sm);
     line-height: 1.4;
     white-space: nowrap;
     pointer-events: none;

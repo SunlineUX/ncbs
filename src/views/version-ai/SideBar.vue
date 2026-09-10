@@ -29,13 +29,13 @@ const sidebarStyle = computed<CSSProperties>(() => ({
   bottom: 0;
   background-color: var(--color-sidebar-bg);
   border-right: 1px solid var(--color-border);
-  transition: width @transition-base @ease-in-out;
+  transition: width var(--transition-base) var(--ease-in-out);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  z-index: @z-sidebar;
+  z-index: var(--z-sidebar);
   .app-logo {
-    height: @layout-header-height;
+    height: var(--layout-header-height);
   }
 }
 </style>

@@ -32,7 +32,7 @@ const sidebarWidth = computed(() => (appStore.sidebarCollapsed ? '56px' : '180px
 
   &__main {
     height: 100%;
-    transition: margin-left @transition-base @ease-in-out;
+    transition: margin-left var(--transition-base) var(--ease-in-out);
     overflow: hidden;
     display: flex;
     flex-direction: column;

@@ -213,7 +213,7 @@ function reset() {
 .app-setting {
   position: fixed;
   inset: 0;
-  z-index: @z-modal;
+  z-index: var(--z-modal);
 
   &__mask {
     position: absolute;
@@ -240,31 +240,31 @@ function reset() {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: @spacing-md @spacing-lg;
+    padding: var(--spacing-md) var(--spacing-lg);
     border-bottom: 1px solid var(--color-border);
   }
 
   &__header h2 {
-    font-size: @font-size-lg;
+    font-size: var(--font-size-lg);
   }
   &__body {
     flex: 1;
     overflow-y: auto;
-    padding: @spacing-lg;
+    padding: var(--spacing-lg);
   }
   &__section {
-    padding: @spacing-md 0;
+    padding: var(--spacing-md) 0;
     border-bottom: 1px solid var(--color-border-light);
   }
   &__section h3 {
-    margin-bottom: @spacing-sm;
-    font-size: @font-size-sm;
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-sm);
     color: var(--color-text-muted);
   }
   &__flat-list {
     display: flex;
     flex-direction: column;
-    gap: @spacing-xs;
+    gap: var(--spacing-xs);
   }
 
   &__flat-option {
@@ -272,14 +272,14 @@ function reset() {
     align-items: center;
     width: 100%;
     min-height: 48px;
-    padding: 0 @spacing-sm;
+    padding: 0 var(--spacing-sm);
     border: 1px solid transparent;
     border-radius: var(--radius-md);
     color: var(--color-text-base);
     text-align: left;
     transition:
-      background-color @transition-fast @ease-in-out,
-      border-color @transition-fast @ease-in-out;
+      background-color var(--transition-fast) var(--ease-in-out),
+      border-color var(--transition-fast) var(--ease-in-out);
 
     &:hover {
       background-color: var(--color-bg-soft);
@@ -293,8 +293,8 @@ function reset() {
   }
 
   &__theme-option {
-    gap: @spacing-md;
-    font-size: @font-size-md;
+    gap: var(--spacing-md);
+    font-size: var(--font-size-md);
   }
 
   &__theme-mark {
@@ -324,8 +324,8 @@ function reset() {
   &__language-option {
     justify-content: space-between;
     min-height: 56px;
-    padding: 0 @spacing-md;
-    font-size: @font-size-lg;
+    padding: 0 var(--spacing-md);
+    font-size: var(--font-size-lg);
   }
 
   &__check {
@@ -338,21 +338,21 @@ function reset() {
 
   &__language-option .iconfont {
     color: var(--color-text);
-    font-size: @font-size-xl;
+    font-size: var(--font-size-xl);
   }
   label {
     display: block;
-    margin: @spacing-sm 0;
-    font-size: @font-size-sm;
+    margin: var(--spacing-sm) 0;
+    font-size: var(--font-size-sm);
     cursor: pointer;
   }
   input {
-    margin-right: @spacing-xs;
+    margin-right: var(--spacing-xs);
     accent-color: var(--color-primary);
   }
   &__choices {
     display: grid;
-    gap: @spacing-xs;
+    gap: var(--spacing-xs);
   }
   &__choices--two {
     grid-template-columns: repeat(2, 1fr);
@@ -362,7 +362,7 @@ function reset() {
   }
   &__choices button {
     min-height: 34px;
-    padding: 0 @spacing-xs;
+    padding: 0 var(--spacing-xs);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     color: var(--color-text-base);
@@ -374,7 +374,7 @@ function reset() {
   }
   &__colors {
     display: flex;
-    gap: @spacing-md;
+    gap: var(--spacing-md);
   }
   &__color {
     width: 26px;

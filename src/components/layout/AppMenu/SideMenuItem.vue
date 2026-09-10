@@ -158,15 +158,15 @@ function handleChildOpenChange(key: string) {
 
   &__trigger {
     .flex-start();
-    gap: @spacing-sm;
+    gap: var(--spacing-sm);
     width: 100%;
     height: 40px;
-    padding: 0 @spacing-md;
+    padding: 0 var(--spacing-md);
     border: 0;
     cursor: pointer;
     color: var(--color-text-base);
     background: transparent;
-    transition: background-color @transition-fast @ease-in-out;
+    transition: background-color var(--transition-fast) var(--ease-in-out);
     white-space: nowrap;
     text-align: left;
 
@@ -195,7 +195,7 @@ function handleChildOpenChange(key: string) {
     .flex-center();
     flex: 0 0 18px;
     width: 18px;
-    font-size: @font-size-md;
+    font-size: var(--font-size-md);
   }
 
   &__label {
@@ -204,13 +204,13 @@ function handleChildOpenChange(key: string) {
   }
 
   &__arrow {
-    font-size: @font-size-lg;
+    font-size: var(--font-size-lg);
     line-height: 1;
     // transform: rotate(90deg);
     width: 12px;
     height: 12px;
     display: flex;
-    transition: transform @transition-fast @ease-in-out;
+    transition: transform var(--transition-fast) var(--ease-in-out);
     transform-origin: center;
   }
   .rotate-180 {
@@ -238,15 +238,15 @@ function handleChildOpenChange(key: string) {
   }
 
   &__popover-title {
-    padding: @spacing-xs @spacing-sm;
+    padding: var(--spacing-xs) var(--spacing-sm);
     color: var(--color-text-secondary);
-    font-size: @font-size-sm;
-    font-weight: @font-weight-medium;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
     white-space: nowrap;
   }
 
   &__children &__trigger {
-    padding-left: @spacing-lg + 16px;
+    padding-left: var(--spacing-xl);
   }
 
   &.is-collapsed > &__trigger {

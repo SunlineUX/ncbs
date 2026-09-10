@@ -21,20 +21,20 @@ const { t } = useI18n()
 .not-found {
   .flex-center();
   flex-direction: column;
-  gap: @spacing-md;
+  gap: var(--spacing-md);
   min-height: 100vh;
-  padding: @spacing-xl;
+  padding: var(--spacing-xl);
 
   &__code {
     font-size: 80px;
-    font-weight: @font-weight-bold;
+    font-weight: var(--font-weight-bold);
     color: var(--color-primary);
     line-height: 1;
   }
 
   &__text {
     color: var(--color-text-muted);
-    font-size: @font-size-md;
+    font-size: var(--font-size-md);
   }
 }
 </style>

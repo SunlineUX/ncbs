@@ -118,10 +118,10 @@ onBeforeUnmount(() => {
 
   &__content {
     position: fixed;
-    z-index: @z-dropdown;
+    z-index: var(--z-dropdown);
     display: block;
     min-width: 180px;
-    padding: @spacing-xs 0;
+    padding: var(--spacing-xs) 0;
     background-color: var(--color-bg-elevated);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);

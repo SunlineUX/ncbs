@@ -34,10 +34,10 @@ const settingsStore = useSettingsStore()
   &__nav {
     display: flex;
     flex-shrink: 0;
-    height: @layout-header-height;
+    height: var(--layout-header-height);
     background-color: var(--color-sidebar-bg);
     border-bottom: 1px solid var(--color-border);
-    z-index: @z-header;
+    z-index: var(--z-header);
   }
 
   &__logo {
@@ -45,8 +45,8 @@ const settingsStore = useSettingsStore()
     width: 220px;
     flex-shrink: 0;
     color: var(--color-primary);
-    font-size: @font-size-lg;
-    font-weight: @font-weight-bold;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
     letter-spacing: 1px;
     border-right: 1px solid var(--color-border);
   }

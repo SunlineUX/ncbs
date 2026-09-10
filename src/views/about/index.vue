@@ -28,18 +28,18 @@ const { t } = useI18n()
 <style lang="less" scoped>
 .about-view {
   &__title {
-    font-size: @font-size-2xl;
-    margin-bottom: @spacing-lg;
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-lg);
   }
 
   &__desc {
     color: var(--color-text-muted);
-    margin-bottom: @spacing-md;
+    margin-bottom: var(--spacing-md);
   }
 
   &__list {
     li {
-      padding: @spacing-xs 0;
+      padding: var(--spacing-xs) 0;
       color: var(--color-text-base);
     }
   }

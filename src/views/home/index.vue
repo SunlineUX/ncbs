@@ -42,32 +42,32 @@ const localeStore = useLocaleStore()
 <style lang="less" scoped>
 .home-view {
   &__title {
-    font-size: @font-size-2xl;
-    margin-bottom: @spacing-lg;
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-lg);
   }
 
   &__grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: @spacing-md;
+    gap: var(--spacing-md);
   }
 
   &__desc {
     color: var(--color-text-muted);
-    font-size: @font-size-sm;
-    margin-bottom: @spacing-sm;
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-sm);
   }
 
   &__value {
     color: var(--color-text-base);
-    font-size: @font-size-sm;
-    margin-bottom: @spacing-md;
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-md);
 
     code {
       color: var(--color-primary);
       background-color: var(--color-primary-light);
       padding: 2px 6px;
-      border-radius: @radius-sm;
+      border-radius: var(--radius-sm);
     }
   }
 }

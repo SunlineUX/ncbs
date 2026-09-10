@@ -89,7 +89,7 @@ function handleOpenChange(key: string) {
 .side-menu {
   flex: 1;
   overflow-y: auto;
-  padding: @spacing-sm 0;
+  padding: var(--spacing-sm) 0;
   .scrollbar-themed();
 
   &__list {

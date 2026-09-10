@@ -56,10 +56,10 @@ function toggleSidebar() {
     .flex-between();
     height: 100%;
     flex-shrink: 0;
-    padding: 0 @spacing-md;
-    transition: all @transition-fast @ease-in-out;
+    padding: 0 var(--spacing-md);
+    transition: all var(--transition-fast) var(--ease-in-out);
     &.is-collapsed {
-      // padding: 0 @spacing-lg;
+      // padding: 0 var(--spacing-lg);
       .app-header__collapse{
         
         opacity: 0;
@@ -78,8 +78,8 @@ function toggleSidebar() {
     display: flex;
     align-items: center;
     text-decoration: none;
-    gap: @spacing-sm;
-    transition: all @transition-fast @ease-in-out;
+    gap: var(--spacing-sm);
+    transition: all var(--transition-fast) var(--ease-in-out);
   }
 
   &__logo-icon {
@@ -88,8 +88,8 @@ function toggleSidebar() {
   }
 
   &__logo-text {
-    font-size: @font-size-lg;
-    font-weight: @font-weight-bold;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
     color: var(--color-primary);
     letter-spacing: 1px;
     white-space: nowrap;

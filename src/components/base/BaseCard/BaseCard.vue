@@ -32,10 +32,10 @@ withDefaults(
 <style lang="less" scoped>
 .base-card {
   background-color: var(--color-bg-elevated);
-  border-radius: @radius-lg;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--color-border);
   overflow: hidden;
-  transition: box-shadow @transition-base @ease-in-out;
+  transition: box-shadow var(--transition-base) var(--ease-in-out);
 
   &--shadow-sm {
     box-shadow: var(--shadow-sm);
@@ -52,24 +52,24 @@ withDefaults(
 
   &__header {
     .flex-between();
-    padding: @spacing-md @spacing-lg;
+    padding: var(--spacing-md) var(--spacing-lg);
     border-bottom: 1px solid var(--color-border-light);
   }
 
   &__title {
-    font-size: @font-size-md;
-    font-weight: @font-weight-semibold;
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text);
   }
 
   &__body {
     &.is-padding {
-      padding: @spacing-md @spacing-lg;
+      padding: var(--spacing-md) var(--spacing-lg);
     }
   }
 
   &__footer {
-    padding: @spacing-sm @spacing-lg;
+    padding: var(--spacing-sm) var(--spacing-lg);
     border-top: 1px solid var(--color-border-light);
   }
 }

@@ -49,17 +49,17 @@ const classes = computed(() => [
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: @spacing-xs;
-  border-radius: @radius-md;
+  gap: var(--spacing-xs);
+  border-radius: var(--radius-md);
   border: 1px solid var(--color-border-strong);
   background-color: var(--color-bg-elevated);
   color: var(--color-text);
-  font-size: @font-size-base;
-  font-weight: @font-weight-medium;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
   line-height: 1;
   white-space: nowrap;
   user-select: none;
-  transition: all @transition-fast @ease-in-out;
+  transition: all var(--transition-fast) var(--ease-in-out);
 
   &:not(.is-disabled) {
     cursor: pointer;
@@ -84,17 +84,17 @@ const classes = computed(() => [
   // 尺寸
   &--sm {
     height: 28px;
-    padding: 0 @spacing-sm;
-    font-size: @font-size-xs;
+    padding: 0 var(--spacing-sm);
+    font-size: var(--font-size-xs);
   }
   &--md {
     height: 32px;
-    padding: 0 @spacing-md;
+    padding: 0 var(--spacing-md);
   }
   &--lg {
     height: 40px;
-    padding: 0 @spacing-lg;
-    font-size: @font-size-md;
+    padding: 0 var(--spacing-lg);
+    font-size: var(--font-size-md);
   }
 
   // 变体
